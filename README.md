@@ -1,5 +1,13 @@
 ## Foundry
 
+this is my first experience in the foundry project.
+
+```
+function helloworld() external view returns(string memory result) {
+    return "HELLO WORLD!"
+}
+```
+
 **Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
 
 Foundry consists of:
