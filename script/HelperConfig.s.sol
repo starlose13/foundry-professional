@@ -5,6 +5,9 @@ import {Script} from "forge-std/Script.sol";
 import {MockV3Aggregator} from "../test/Mocks/MockV3Aggregator.sol";
 
 contract HelperConfig is Script {
+    uint8 public constant DECIMAL = 8;
+    int256 public constant INITIAL_NUMBER = 2000e8;
+
     NetworkConfig public activated;
     struct NetworkConfig {
         address activeChainAddress;
@@ -47,7 +50,10 @@ contract HelperConfig is Script {
 
     function AnvilChainLinkConfig() public returns (NetworkConfig memory) {
         vm.startBroadcast();
-        MockV3Aggregator mockV3Aggregator = new MockV3Aggregator(8, 2000e8);
+        MockV3Aggregator mockV3Aggregator = new MockV3Aggregator(
+            DECIMAL,
+            INITIAL_NUMBER
+        );
         NetworkConfig memory anvilConfig = NetworkConfig({
             activeChainAddress: address(mockV3Aggregator), // something else
             secondNeworkAddress: address(0)
