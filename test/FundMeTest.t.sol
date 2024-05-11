@@ -9,10 +9,12 @@ import {DeployFundMe} from "../script/DeployFundMe.s.sol";
 contract FundMeTest is Test {
     FundMe fundMe;
     DeployFundMe deployFundMe;
+    address USER = makeAddr("new User");
 
     function setUp() external {
         deployFundMe = new DeployFundMe();
         fundMe = deployFundMe.run();
+        vm.deal(USER, 100 ether);
     }
 
     function testMinimumFive() public {
@@ -27,5 +29,13 @@ contract FundMeTest is Test {
 
     function testGetVersion() external {
         assertEq(fundMe.getVersion(), 4);
+    }
+
+    function testFund() external {
+        vm.expectRevert();
+        fundMe.fund();
+        vm.prank(USER);
+        console.log(USER);
+        console.log(USER.balance);
     }
 }
