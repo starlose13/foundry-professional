@@ -13,7 +13,7 @@ contract FundMe {
     address[] public funders;
     AggregatorV3Interface private v3Interface;
     // Could we make this constant?  /* hint: no! We should make it immutable! */
-    address public /* immutable */ i_owner;
+    address private /* immutable */ i_owner;
     uint256 public constant MINIMUM_USD = 5 * 10 ** 18;
     
     constructor(address _v3Interface) {
@@ -56,6 +56,11 @@ contract FundMe {
         (bool callSuccess, ) = payable(msg.sender).call{value: address(this).balance}("");
         require(callSuccess, "Call failed");
     }
+
+    function getOwner() public view returns(address){
+        return i_owner;
+    }
+
     // Explainer from: https://solidity-by-example.org/fallback/
     // Ether is sent to contract
     //      is msg.data empty?

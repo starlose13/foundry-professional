@@ -1,0 +1,4 @@
+FundMeTest:testFund() (gas: 117478)
+FundMeTest:testGetVersion() (gas: 10680)
+FundMeTest:testMinimumFive() (gas: 5381)
+FundMeTest:testOnwer() (gas: 11830)

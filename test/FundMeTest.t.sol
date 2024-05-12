@@ -23,8 +23,8 @@ contract FundMeTest is Test {
 
     function testOnwer() public {
         console.log(msg.sender);
-        console.log(fundMe.i_owner());
-        assertEq(fundMe.i_owner(), msg.sender);
+        console.log(fundMe.getOwner());
+        assertEq(fundMe.getOwner(), msg.sender);
     }
 
     function testGetVersion() external {
@@ -35,7 +35,16 @@ contract FundMeTest is Test {
         vm.expectRevert();
         fundMe.fund();
         vm.prank(USER);
+        fundMe.fund{value: 10 ether}();
         console.log(USER);
         console.log(USER.balance);
+    }
+
+    function testOnlyOnwerAccess() public {
+        vm.expectRevert();
+        vm.prank(USER);
+        fundMe.withdraw();
+        vm.prank(fundMe.getOwner());
+        fundMe.withdraw();
     }
 }
