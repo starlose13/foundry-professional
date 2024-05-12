@@ -42,7 +42,7 @@ contract FundMeTest is Test {
 
     function testOnlyOnwerAccess() public {
         vm.expectRevert();
-        vm.prank(USER);
+        hoax(USER, 100);
         fundMe.withdraw();
         vm.prank(fundMe.getOwner());
         fundMe.withdraw();
